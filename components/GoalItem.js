@@ -5,7 +5,7 @@ const GoalItem = (props) => {
     <View style={styles.goalItem}>
       <Pressable 
       onPress={props.onDelete.bind(this, props.id)}
-      style={({pressed})=> pressed && styles.pressedItem}>
+      style={({pressed})=> pressed && styles.pressedItem || styles.goalItem}>
       <Text style={styles.goalText}>{props.text}</Text>
     </Pressable>
     </View>
@@ -16,19 +16,26 @@ export default GoalItem;
 
 const styles = StyleSheet.create({
   goalItem: {
-    margin: 8,
+    position:'relative',
+    margin: 3,
     borderRadius: 6,
     backgroundColor: "#5e0acc",
+    justifyContent:'center',
+    height:50,
   },
   pressedItem:{
     opacity:1,
-    backgroundColor:"red",
+    backgroundColor:"crimson",
+    height:50,
+    justifyContent:'center',
     borderRadius:6,
-    color:'black',
 
   },
   goalText: {
+    position:'relative',
     color: "white",
-    padding: 8,
+    alignSelf:'center',
+ 
+    
   },
 });

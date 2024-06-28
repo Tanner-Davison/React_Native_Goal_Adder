@@ -26,6 +26,7 @@ export default function App() {
   };
   const goalEndHandler = () => {
     setModalVisible(false);
+    onBlur()
   };
   const deleteGoalHandler = (id) => {
     console.log("DELETE");
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
 
   goalsContainer: {
     flex: 4,
+    paddingTop:'20%',
   },
   addGoalBtn: {
     position: "absolute",
