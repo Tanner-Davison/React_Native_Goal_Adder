@@ -3,22 +3,26 @@ import { StatusBar } from "expo-status-bar";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 import { StyleSheet,Keyboard, View, FlatList, Text, Pressable } from "react-native";
+import NodeRetrieval from "./components/NodeRetrieval";
 
 export default function App() {
   const [allGoals, setAllGoals] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [apiVisible, setApiVisible] = useState(false);
   const [focused, setFocused] = useState(false);
+
   const modalHandler = () => {
     setModalVisible(!modalVisible);
   };
+  const apiModalHandler = () =>{
+    setApiVisible(!apiVisible)
+  }
   const onFocus = () => {
     setFocused(true);
-    console.log("focused now");
   };
   const onBlur = () => {
     setFocused(false);
     Keyboard.dismiss()
-    console.log('discontinue focus')
   };
   const goalEndHandler = () => {
     setModalVisible(false);
@@ -52,7 +56,22 @@ export default function App() {
         >
           <Text style={styles.buttonText}> Add New Goal</Text>
         </Pressable>
+        <Pressable
+          style={({ pressed }) => {
+            return pressed
+              ? styles.pressedApiButton 
+              : styles.apiButton;
+          }}
+          underlayColor="#0056b3"
+          onPress={apiModalHandler}
+        >
+          <Text style={styles.buttonText}> View Api</Text>
+        </Pressable>
 
+          <NodeRetrieval
+          showApi={apiVisible}
+          apiModalHandler={apiModalHandler}
+          />
         <GoalInput
           onFocus={onFocus}
           onBlur={onBlur}
@@ -127,4 +146,26 @@ const styles = StyleSheet.create({
     color: "white",
     alignSelf: "center",
   },
+  apiButton:{
+    position: "absolute",
+    bottom: 100,
+    width: "90%",
+    alignSelf: "center",
+    borderRadius: 8,
+    borderWidth: 3,
+    padding: 10,
+    backgroundColor: "black",
+    zIndex: 2,
+  },
+  pressedApiButton:{
+    position: "absolute",
+    bottom: 100,
+    width: "90%",
+    alignSelf: "center",
+    borderRadius: 8,
+    borderWidth: 3,
+    padding: 10,
+    backgroundColor: "#001221",
+    zIndex: 2,
+  }
 });
