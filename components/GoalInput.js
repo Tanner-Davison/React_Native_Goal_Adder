@@ -5,8 +5,6 @@ import {
   Button,
   Modal,
   Image,
-  TouchableHighlight,
-  Pressable,
 } from "react-native";
 import { useState } from "react";
 import Goals from "../assets/GOALS.png";
