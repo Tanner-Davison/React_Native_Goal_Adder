@@ -5,41 +5,33 @@ import {
   Button,
   Modal,
   Image,
+  Pressable,
 } from "react-native";
 import { useState } from "react";
 import Goals from "../assets/GOALS.png";
+
 const GoalInput = (props) => {
   const [userGoal, setUserGoal] = useState("");
-  const [focused, setFocused] = useState(false);
-
+  
   const handleGoalChange = (enteredText) => {
     setUserGoal(enteredText);
-  };
-  const onFocus = () => {
-    setFocused(true);
-    console.log("focused now");
-  };
-  const onBlur = () => {
-    setFocused(false);
   };
 
   const addGoalHandler = () => {
     props.onAddGoal(userGoal);
     setUserGoal("");
   };
-
   return (
-    <Modal visible={props.showmodal} animationType="slide">
-      <View style={styles.inputContainer}>
+    <Modal visible={props.showmodal} animationType="slide" >
+      <Pressable style={styles.inputContainer} onPress={props.onBlur}>
         <Image style={styles.image} source={Goals} width={10} height={10} />
 
         <TextInput
-          style={focused ? styles.focused : styles.textInput}
+          style={props.focused ? styles.focused : styles.textInput}
           placeholder="Your list of goals"
           onChangeText={handleGoalChange}
           value={userGoal}
-          onFocus={() => onFocus()}
-          onBlur={() => onBlur()}
+          onFocus={props.onFocus}
         />
 
         <View style={styles.buttonContainer}>
@@ -54,7 +46,7 @@ const GoalInput = (props) => {
             <Button title="Close" color="#f31282" onPress={props.onCancel} />
           </View>
         </View>
-      </View>
+      </Pressable>
     </Modal>
   );
 };

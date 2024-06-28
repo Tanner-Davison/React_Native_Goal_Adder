@@ -2,14 +2,23 @@ import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
-import { StyleSheet, View, FlatList, Text, Pressable } from "react-native";
+import { StyleSheet,Keyboard, View, FlatList, Text, Pressable } from "react-native";
 
 export default function App() {
   const [allGoals, setAllGoals] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [focused, setFocused] = useState(false);
   const modalHandler = () => {
     setModalVisible(!modalVisible);
+  };
+  const onFocus = () => {
+    setFocused(true);
+    console.log("focused now");
+  };
+  const onBlur = () => {
+    setFocused(false);
+    Keyboard.dismiss()
+    console.log('discontinue focus')
   };
   const goalEndHandler = () => {
     setModalVisible(false);
@@ -45,6 +54,9 @@ export default function App() {
         </Pressable>
 
         <GoalInput
+          onFocus={onFocus}
+          onBlur={onBlur}
+          focused={focused}
           onAddGoal={addGoalHandler}
           showmodal={modalVisible}
           onCancel={goalEndHandler}
